@@ -2,130 +2,125 @@ package br.com.impacta.prateleiradigital.aorecentaçao;
 
 public class FilmeDao {
 	
-	private static List<Filme> listaDefilme = null
+	private final conexao conexao;
+	
+	
+	public FilmeDao() {
+		this.conexao = new Conexao():
+	}
+	
+	public int insert(Filme filme) throws SQLException{
+		String sql = "INSERT INTO tb_Filmes(titulo, diretores,nota,duracao,ano,generos,numVotos,url)"
+				+ "VALUES(?,?,?,?,?,?,?,?)";
+		
+		try(Connection con = conexao.getConnection(); PreparedStatement ps = con.preparedstatement(sql) ) {
 			
-    public FilmeDao() {
-		if(listaDefilme == null) {
-		   listaDefilme = new ArrayList<Filme>();
-		   
-		   Filme filme = new Filme();
-		   filme.setAno(2002);
-		   filme.setDiretores("Peter Jackson");
-		   filme.setGeneros("Fantasia");
-		   filme.setduraçao(160);
-		   filme.setNota(10);
-		   filme.setNumvotos(1000);
-		   filme.setTitulo("Senhor dos aneis - A sociedade do anel");
-		   filme.setUrl("https://imb.com/senhordosaneis");
-		   listaDefilme.add(filme);
-		   
-		   Filme filme = new Filme();
-		   filme.setAno(1999);
-		   filme.setDiretores("Irmas watchowski");
-		   filme.setGeneros("Ficçao");
-		   filme.setduraçao("180")
-		   filme.setNota(10);
-		   filme.setNumvotos(1000);
-		   filme.setTitulo("Matrix");
-		   filme.setUrl("https://imb.com/Matrix");
-		   listaDefilme.add(filme);
-		   
-		   Filme filme = new Filme();
-		   filme.setAno(1984);
-		   filme.setDiretores("James Cameron");
-		   filme.setGeneros("Ficçao");
-		   filme.setduraçao("180");
-		   filme.setNota(10);
-		   filme.setNumvotos(1000);
-		   filme.setTitulo("Matrix");
-		   filme.setUrl("https://imb.com/ExterminadorDofuturo");
-		   listaDefilme.add(filme);
-		   
-		}
-	}
-	
-	public 	List<Filme> select(){
-		return listaDefilme;
-	}
-	
-	public Filme select(int id) {
-		return listaDe=filme.get(id);
-	}
-	
-	public boolean insert(Filme id) {
-		
-	}
-	
-	
-	/**
-	 * Adiciona um novo filme no repositório de dados
-	 * 
-	 * @param filme Encapsula os dados do filme que será adicionado ao repositório de dados
-	 * 
-	 * @throws Exception Se alguma falha de acesso ao banco de dados ocorrer
-	 */
-	public void adicionar(Filme filme) throws Exception {
-		//TODO Código para inserir um novo filme na base de dados 
-	}
-
-	/**
-	 * Realiza uma consulta no repositório de dados baseado no objeto filtro informado no parâmetro
-	 * 
-	 * @param tituloParcial Parte do titulo do filme. Sendo o padrão informado fazendo parte de qualquer parte do texto do titulo original 
-	 * @param genero Um dos generos em que o filme se enquadra
-	 * @param anoInicial Ano representando o limite inferior (inclusive) do ano de lançamento do filme. Valor maior que zero 
-	 * @param anoFinal Ano representando o limite superior (inclusive) do ano de lançamento do filme. Valor maior que o anoInicial
-	 * 
-	 * @return Filme que atende critérios 
-	 * 
-	 * @throws Caso alguma falha no acesso aos dados ocorrer
-	 */
-	public List<Filme> consultar(String tituloParcial, String genero, int anoInicial, int anoFinal) throws Exception {
-		// TODO Inserir Código para consultar o filme baseado no filtro informado
-		return listaFilmeFake(4);
-	}
-	
-	/**
-	 * Executa a ação de remover o filme do repositório de dados.
-	 * 
-	 * @param filme Filme instância do filme que deve ser removido do repositório
-	 * 
-	 * @throws Caso alguma falha no acesso aos dados ocorra
-	 */
-	public void remover(Filme filme) throws Exception{
-		// TODO Código para remoção do filme informado como parâmetro
-	}
-	
-	/**
-	 * 
-	 * @param genero Gênero desejado 
-	 * @param diretor Diretor ou um dos diretores do filme 
-	 * @param notaMinima Nota mínima para ser considerada na busca
-	 * @param numeroVotosMinimo Número minimo de votos desejado 
-
-	 * @return Filme que atende aos critérios informados
-	 * 
-	 * @throws Exception se alguma falha no acesso aos dados ocorrer
-	 */
-	public List<Filme> consultar(String genero, String diretor, double notaMinima, int numeroVotosMinimo) throws Exception{
-		// TODO Gerar a busca baseada nas informações do parâmetro
-		return listaFilmeFake(3);
-	}
-	
-	
-	//TODO remover este metodo após implementação do acesso a dados
-	private List<Filme> listaFilmeFake(int size) {
-		
-		List<Filme> filmes = new ArrayList<>();
-		
-		for(int i=0; i<size; i++) {
-			Filme f = new Filme("Filme-"+i,"diretor-"+i,10,100,2017,"genero-"+i,100_000,"http://impacta.com.br");
-			filmes.add(f);
+			ps.setString(1,filme.getTitulo());
+			ps.setString(2,filme.getDiretores());
+			ps.setString(3,filme.getNota());
+			ps.setString(4, filme.getDuracao());
+			ps.setString(5, filme.getAno());
+			ps.setString(6, filme.getGeneros());
+			ps.setString(7, filme.getNumvotos());
+			
+			if(filme.getgUrl() == null) {
+				ps.setNull(8, Types.VARCHAR);
+			}else {
+				return ps
+			}
+			
+		}catch(Exception e) {
+			
 		}
 		
-		return filmes;
+		return 0;
 	}
-
+	
+	
+	
+	public List<Filme> select()throws SQLxception{
+		
+		String sql = "SELECT titulo,diretores,nota,duracao,ano,"
+				+"generos,numvotos,url FROM tb_filmes"
+				+"ORDER NY titulo";
+		List<Filme> filmes = new ArrayList<Filme>();
+		
+		try(Connection con = conexao.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);
+				ResultSet rs = ps.executequery()
+			){
+			
+			
+			while (rs.next()) {
+				Filme filme = new Filme(
+					rs.getString("titulo"),	
+					rs.getString("diretores"),
+					rs.getDouble("nota"),
+					rs.getInt("duracao"),
+					rs.getInt("ano"),
+					rs.getString("generos"),
+					rs.getInt("numvotos"),
+					rs.getString("url")
+				);
+				
+				filmes.add(filme);
+				
+			}
+			
+			return filmes;
+			
+		} catch (SQLException e) {
+			e.prinStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	public int update(int id,Filme filme) throws SQLExceptions {
+		
+		String sql = "UPDATE tb_filmes SET titulo = ?, diretores = ?"
+				+" nota = ?, duraca = ?, ano = ?, generos = ?,"
+				+"numvotos = ?, url= ?, WHERE id = ?";
+		
+		try(
+			    Connection con = conexao.getConnetion();
+				PreparedStatement ps = con.prepareStatement(sql)
+			){
+			
+			ps.setString(1, filme.getTitulo());
+			ps.setString(2, filme.getdiretores());
+			ps.setdouble(3, filme.getnota());
+			ps.setInt(4, filme.getduracao());
+			ps.setInt(5,filme.getano());
+			ps.setString(6, filme.getgeneros());
+			ps.setInt(7, filme.getnumDevotos());
+			ps.setString(8, filme.getUrl());
+			ps.setInt(9, filme.)
+			
+			return ps.ececuteUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int delete (int id)throws SQLException {
+		
+		String sql ="DELETE FROM tb_filmes WHERE id = ?";
+		
+		try(  
+				Connection con = conexao.getConnection();
+				preparedStatement ps = con.prepareStatement(sql);
+		    ) {
+			
+			ps.senInt
+			
+		}
+		
+	}
 }
-
-
+	
+	

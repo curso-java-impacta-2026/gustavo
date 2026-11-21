@@ -1,0 +1,22 @@
+<xmlns xmlns="http:/>>/maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>br.com.impacta.pratileiradigital</groupId>
+  <artifactId>Pratileiradigital</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>21</release>
+        </configuration>
+      </plugin>
+    </plugins>
+</build>
+<dependency> 
+      <groupId>com.mysql</groupId> 
+      <artifactId>mysql-connector-j</artifactId> 
+      <version>26.10.0</version> 
+ </dependency> 
